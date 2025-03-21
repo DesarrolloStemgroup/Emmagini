@@ -14,7 +14,7 @@ const NavBar = () => {
 	const { data, empresa } = useDataContext();
 
 	return (
-		<div className="flex justify-between items-center fixed z-10 w-full h-16 py-5 px-8 text-sm font-light top-0 bg-blueEmmagini">
+		<div className="flex justify-between items-center fixed z-10 w-full h-[68px] py-5 px-8 text-sm font-light top-0 bg-blueEmmagini">
 			<ul className="flex items-center gap-3">
 				<li className="font-semibold text-lg text-white">
 					<Link href="/app">

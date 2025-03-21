@@ -43,7 +43,7 @@ function Table() {
 		if (tipo === "museo") {
 			router.push(`/app/museo/${id}`);
 		} else if (tipo === "album") {
-			if (nombre === "Trivia Copa ") {
+			if (nombre === "Trivia") {
 				router.push(`/app/trivia/${id}`);
 				setIdAlbum(id);
 			} else {
@@ -119,7 +119,12 @@ function Table() {
 								<div className="flex justify-center">
 									<CardHome
 										text={game.titulo}
-										imageCard={game.imagen || game.imagen_1 || game.imagen_0}
+										imageCard={
+											game.imagen ||
+											game.imagen_1 ||
+											game.imagen_0 ||
+											game.image
+										}
 										imageClassName={
 											isPremiumContent(game) && !userModoPremium
 												? "blur-sm"
