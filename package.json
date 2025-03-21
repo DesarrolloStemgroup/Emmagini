@@ -36,7 +36,6 @@
 		"react-icons": "^5.0.1",
 		"react-query": "^3.39.3",
 		"react-toastify": "^10.0.5",
-		"react-wheel-of-prizes": "^1.1.0",
 		"tailwind-merge": "^3.0.2",
 		"tailwindcss-animate": "^1.0.7",
 		"zod": "^3.22.4"
@@ -44,6 +43,7 @@
 	"devDependencies": {
 		"@types/axios": "^0.14.0",
 		"@types/node": "^20.16.11",
+		"@types/prop-types": "^15.7.14",
 		"@types/react": "^18.3.11",
 		"@types/react-beautiful-dnd": "^13.1.8",
 		"@types/react-dom": "^18.3.1",

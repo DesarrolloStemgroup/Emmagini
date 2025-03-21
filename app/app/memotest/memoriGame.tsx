@@ -41,6 +41,7 @@ const App: React.FC<AppProps> = ({ idDelJuego, idPartida, iniciarPartida }) => {
 	const [showRuletaButton, setShowRuletaButton] = useState<boolean>(false);
 	const [cover, setCover] = useState<string>("");
 	const [gameStarted, setGameStarted] = useState(false);
+	const HOST_URL = process.env.NEXT_PUBLIC_HOST_URL;
 
 	useEffect(() => {
 		const hideModal = localStorage.getItem(`hideModal_${idDelJuego}`);
@@ -146,7 +147,7 @@ const App: React.FC<AppProps> = ({ idDelJuego, idPartida, iniciarPartida }) => {
 					correctas: successfulAttempts,
 					incorrectas: failedAttempts,
 					timeout: 0,
-					host: "demo14.emmagini.com",
+					host: HOST_URL,
 					lang: lang,
 				},
 				{
@@ -206,7 +207,7 @@ const App: React.FC<AppProps> = ({ idDelJuego, idPartida, iniciarPartida }) => {
 					correctas: successfulAttempts,
 					incorrectas: failedAttempts,
 					timeout: 1,
-					host: "demo14.emmagini.com",
+					host: HOST_URL,
 					lang: lang,
 				},
 				{

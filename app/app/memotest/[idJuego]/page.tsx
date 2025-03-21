@@ -16,6 +16,7 @@ function Page({ params: { idJuego } }: ComponentProps) {
 	const { token, userId, lang } = useAuthContext();
 	const [loading, setLoading] = useState(false);
 	const [response, setResponse] = useState<any>(null);
+	const HOST_URL = process.env.NEXT_PUBLIC_HOST_URL;
 
 	const iniciarPartida = useCallback(async () => {
 		try {
@@ -26,7 +27,7 @@ function Page({ params: { idJuego } }: ComponentProps) {
 					userid: userId,
 					id_juego: idJuego,
 					id_partida: "",
-					host: "demo14.emmagini.com",
+					host: HOST_URL,
 					lang: lang,
 				},
 				{
