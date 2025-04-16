@@ -1,4 +1,5 @@
 // @ts-nocheck
+
 import Image from "next/image";
 import Link from "next/link";
 import { ReactNode } from "react";
@@ -22,7 +23,7 @@ interface CardGamesProps {
 	divText?: string;
 	link?: string;
 	buttonText?: string;
-	altText?: string;
+	altText?: any;
 	textSpan?: string;
 	titleClassName?: string;
 	descriptionClassName?: string;
@@ -69,32 +70,38 @@ export const CardGames = ({
 			className={`flex p-4 rounded-lg ${cardClassName || ""}`}
 			style={{ backgroundColor }}
 		>
-			<div className={`flex-none w-[160px] ${imageContainer || ""}`}>
+			<div
+				className={`flex-none w-[160px] h-[160px] overflow-hidden ${
+					imageContainer || ""
+				}`}
+			>
 				<Image
 					src={image}
 					alt="image game"
-					className={`w-full h-full object-contain ${imageClassName || ""}`}
-					width={100}
-					height={185}
+					className={`w-full h-full object-containe ${imageClassName || ""}`}
+					width={160}
+					height={160}
 				/>
 			</div>
 
 			<div className="flex-grow ml-4 flex flex-col justify-center items-start">
 				<h1
-					className={`text-black mb-2  text-sm md:text-base lg:text-lg font-semibold ${
+					className={`text-black mb-2 text-sm md:text-base lg:text-lg font-semibold ${
 						titleClassName || ""
 					}`}
 				>
 					{title}
 				</h1>
-				<p
-					className={`font-normal text-xs md:text-sm lg:text-base text-black ${
-						descriptionClassName || ""
-					}`}
-				>
-					{description}
-				</p>
-				<div className="mt-4">
+				<div className="min-h-[80px]">
+					<p
+						className={`font-normal text-xs text-black ${
+							descriptionClassName || ""
+						}`}
+					>
+						{description}
+					</p>
+				</div>
+				<div className="mt-4 w-full">
 					<h2
 						className={`mb-2 font-semibold text-xs md:text-sm lg:text-base text-center text-black ${
 							subtitleClassName || ""

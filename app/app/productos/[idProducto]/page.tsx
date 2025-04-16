@@ -45,7 +45,6 @@ const fetchProduct = async (
 			},
 		}
 	);
-
 	return response.data;
 };
 
@@ -74,7 +73,6 @@ const purchaseProduct = async (
 				},
 			}
 		);
-
 		return response.data;
 	} catch (error: any) {
 		throw new Error(
@@ -85,13 +83,14 @@ const purchaseProduct = async (
 
 function Page({ params: { idProducto } }: ComponentProps) {
 	const { token, userId, lang } = useAuthContext();
-	const { getAppData, empresa } = useDataContext();
+	const { fetchAppData, empresa, textos } = useDataContext();
 	const router = useRouter();
 
 	const { data, error, isLoading } = useQuery(
 		["productData", token, userId, idProducto],
 		() => fetchProduct(token, userId, idProducto, lang)
 	);
+
 	useEffect(() => {
 		const backgroundImage = empresa?.fondo
 			? `https://backend.emmagini.com/uploads/${empresa.fondo}`
@@ -116,32 +115,37 @@ function Page({ params: { idProducto } }: ComponentProps) {
 	const [modalMessage, setModalMessage] = useState<string | null>(null);
 	const [hasPurchased, setHasPurchased] = useState(false);
 
-	const handlePurchase = async () => {
-		if (data?.content.solouno === "1" && hasPurchased) {
+	const product = data?.content;
+
+	const handlePurchaseCoins = async () => {
+		if (product.solouno === "1" && hasPurchased) {
 			setModalMessage("Solo puedes comprar este producto una vez.");
 			return;
 		}
 
-		if (data?.content.tipo_pago === 1) {
-			try {
-				const result = await purchaseProduct(
-					token,
-					userId,
-					idProducto,
-					data.content.precio,
-					lang
-				);
-				if (result.error === "0") {
-					setModalMessage("Muchas gracias por su compra");
-					setHasPurchased(true);
-					await getAppData();
-				} else {
-					setModalMessage(result.mensaje || "Error en la compra");
-				}
-			} catch (error) {
-				setModalMessage("Error en la compra");
+		try {
+			const result = await purchaseProduct(
+				token,
+				userId,
+				idProducto,
+				product.precio,
+				lang
+			);
+
+			if (result.error === "0") {
+				setModalMessage("Muchas gracias por su compra");
+				setHasPurchased(true);
+				await fetchAppData();
+			} else {
+				setModalMessage(result.mensaje || "Error en la compra");
 			}
+		} catch (error) {
+			setModalMessage("Error en la compra");
 		}
+	};
+
+	const handlePayWithGateway = () => {
+		router.push(product.gatewayurl || "#");
 	};
 
 	if (isLoading) {
@@ -171,8 +175,6 @@ function Page({ params: { idProducto } }: ComponentProps) {
 		);
 	}
 
-	const product = data?.content;
-
 	function fixImageUrl(url: string) {
 		if (url.startsWith("//")) {
 			return `https:${url}`;
@@ -180,9 +182,14 @@ function Page({ params: { idProducto } }: ComponentProps) {
 		return url;
 	}
 
+	const handleModalButton = () => {
+		setModalMessage(null);
+		router.push("/app/productos");
+	};
+
 	return (
 		<>
-			<h1 className="text-white font-bold text-center text-2xl mt-20">
+			<h1 className="text-white font-bold text-center text-2xl mt-20 first-letter:uppercase">
 				{product.nombre}
 			</h1>
 			<div className="flex flex-col md:flex-row items-center justify-center pb-[160px]">
@@ -196,44 +203,85 @@ function Page({ params: { idProducto } }: ComponentProps) {
 					/>
 				</div>
 				<div className="w-full max-w-lg px-4">
-					<p className="text-center text-base font-normal mt-10 text-white">
+					<p className="text-center text-base font-normal mt-10 text-white first-letter:uppercase">
 						{product.texto}
 					</p>
 
-					<p className="text-center text-base font-semibold mt-10 text-white">
-						{product.tipo_pago === 1
-							? "Compra con monedas"
-							: "Compra con Mercado Pago"}
+					{product.tipo_pago === 3 ? (
+						<div className="flex flex-col gap-4 mt-10">
+							<div className="flex flex-row items-center gap-3 justify-center">
+								<div className="flex items-center justify-center bg-white rounded-full shadow-md border border-gray-200 px-2 py-1 w-[420px]">
+									<BsCoin size={20} className="text-orange-300" />
+									<span className="ml-2">{product.precio}</span>
+								</div>
+								<RoundButton
+									buttonClassName="bg-blueEmmagini w-[350px] h-[39px]"
+									text="Comprar con monedas"
+									textClassName="text-center text-white"
+									onClick={handlePurchaseCoins}
+								/>
+							</div>
+
+							<div className="flex flex-row items-center gap-3 justify-center">
+								<div className="flex items-center justify-center bg-white rounded-full shadow-md border border-gray-200 px-2 py-1 w-[420px]">
+									<BsCashCoin size={20} className="text-green-400" />
+									<span className="ml-2 text-center">
+										{product.precio_real}
+									</span>
+								</div>
+								<RoundButton
+									buttonClassName="bg-blueEmmagini w-[350px] h-[39px]"
+									text={textos?.producto_comprar_cash}
+									textClassName="text-center text-white first-letter:uppercase"
+									onClick={handlePayWithGateway}
+								/>
+							</div>
+						</div>
+					) : product.tipo_pago === 1 ? (
+						<div className="flex flex-row items-center gap-3 mt-10 justify-center">
+							<div className="flex items-center justify-center bg-white rounded-full shadow-md border border-gray-200 px-2 py-1 w-[420px]">
+								<BsCoin size={20} className="text-orange-300" />
+								<span className="ml-2">{product.precio}</span>
+							</div>
+							<RoundButton
+								buttonClassName="bg-blueEmmagini w-[350px] h-[39px]"
+								text={textos?.producto_comprar_monedas}
+								textClassName="text-center text-white first-letter:uppercase"
+								onClick={handlePurchaseCoins}
+							/>
+						</div>
+					) : (
+						<div className="flex flex-row items-center gap-3 mt-10 justify-center">
+							<div className="flex items-center justify-center bg-white rounded-full shadow-md border border-gray-200 px-2 py-1 w-[420px]">
+								<BsCashCoin size={20} className="text-green-400" />
+								<span className="ml-2">{product.precio_real}</span>
+							</div>
+							<RoundButton
+								buttonClassName="bg-blueEmmagini w-[350px] h-[39px]"
+								text={textos?.producto_comprar_cash}
+								textClassName="text-center text-white first-letter:uppercase"
+								onClick={handlePayWithGateway}
+							/>
+						</div>
+					)}
+
+					<p className="text-center text-sm font-normal mt-4 text-white first-letter:uppercase">
+						{textos?.producto_finaliza}:{" "}
+						{new Date(product.hasta).toLocaleDateString("es-ES")}
 					</p>
 
-					<div className="flex flex-row gap-3 items-center justify-center w-full h-[39px] bg-white rounded-full shadow-md border border-gray-200">
-						<span className="text-blueEmmagini">{product.precio}</span>
-						{product.tipo_pago === 1 ? (
-							<BsCoin className="ml-2 text-orange-300" size={20} />
-						) : (
-							<BsCashCoin className="ml-2 text-green-400" size={20} />
-						)}
-					</div>
-
-					<RoundButton
-						buttonClassName="bg-blueEmmagini w-[201px] h-[39px] mt-6 mx-auto"
-						text="Comprar"
-						textClassName="text-center text-white"
-						onClick={handlePurchase}
-					/>
-
-					<p className="text-center text-sm font-normal mt-4 text-white">
-						Cierra el: {new Date(product.hasta).toLocaleDateString("es-ES")}
-					</p>
-
-					<p className="text-center text-sm font-normal text-white">
-						Disponibles: {product.disponibles}
+					<p className="text-center text-sm font-normal text-white first-letter:uppercase">
+						{textos?.producto_stock}: {product.disponibles}
 					</p>
 				</div>
 			</div>
 			{modalMessage && (
 				// @ts-ignore
-				<Modal message={modalMessage} onClose={() => setModalMessage(null)} />
+				<Modal
+					message={modalMessage}
+					onButtonClick={handleModalButton}
+					buttonText="Cerrar"
+				/>
 			)}
 			<ButtonNav
 				link1="/app/productos"

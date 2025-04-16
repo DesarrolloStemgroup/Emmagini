@@ -11,6 +11,7 @@ import ButtonNav from "../components/home/ButtonNav";
 import { BsGift } from "react-icons/bs";
 import { BsCartCheck } from "react-icons/bs";
 import { AiOutlineTrophy } from "react-icons/ai";
+import { HiShoppingBag } from "react-icons/hi";
 
 const Home = () => {
 	const { error, empresa, textos } = useDataContext();
@@ -73,11 +74,11 @@ const Home = () => {
 				link1="/app/subastas"
 				link2="/app/productos"
 				link3="/app/premium"
-				icon1={<BsGift size={18} className="text-white" />}
-				icon2={<BsCartCheck size={18} className="text-white" />}
-				icon3={<AiOutlineTrophy size={18} className="text-white" />}
+				icon1={<BsGift size={22} className="text-white" />}
+				icon2={<HiShoppingBag size={22} className="text-white" />}
+				icon3={<AiOutlineTrophy size={22} className="text-white" />}
 				texto1={"Subastas"}
-				texto2={"Productos"}
+				texto2={"Tienda online"}
 				texto3={"Premium"}
 			/>
 		</main>

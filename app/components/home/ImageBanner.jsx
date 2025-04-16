@@ -1,9 +1,14 @@
 import Link from "next/link";
 import Image from "next/image";
-
+import { useDataContext } from "@/app/context/GameDataProvider";
 //Agregar el link del boton si lo tiene o que vaya a subastas.
 
 function ImageBanner(props) {
+	const { empresa } = useDataContext();
+
+	const textColor = empresa?.texto_nav;
+	const navBgColor = empresa?.fondo_nav;
+
 	return (
 		<div className="relative overflow-hidden mt-16 h-[460px] w-full">
 			<div className="absolute inset-0">
@@ -15,7 +20,10 @@ function ImageBanner(props) {
 					className="w-full h-full"
 				/>
 			</div>
-			<div className="relative container mx-auto px-4 py-16 text-white">
+			<div
+				className={`relative container mx-auto px-4 py-16`}
+				style={{ color: textColor }}
+			>
 				<div className="text-center">
 					<h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-normal leading-8 mb-2 md:mb-4">
 						{props.welcomText}
@@ -27,7 +35,10 @@ function ImageBanner(props) {
 						{props.subtitle}
 					</h3>
 					<Link href={props.link} target="_blank" rel="noopener noreferrer">
-						<button className="w-full sm:w-[323px] h-12 bg-blueEmmagini mt-4 rounded-[50px] border-4 border-gray-500 hover:bg-sky-700">
+						<button
+							className={`w-full sm:w-[323px] h-12 bg-blueEmmagini mt-4 rounded-[50px] border-4 border-gray-500 hover:bg-sky-700`}
+							style={{ backgroundColor: navBgColor }}
+						>
 							{props.buttonText}
 						</button>
 					</Link>
