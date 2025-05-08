@@ -15,8 +15,8 @@ function ImageBanner(props) {
 				<Image
 					src={props.image}
 					alt="Banner"
-					layout="fill"
-					objectFit="cover"
+					fill
+					style={{ objectFit: "cover" }}
 					className="w-full h-full"
 				/>
 			</div>

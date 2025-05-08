@@ -172,15 +172,23 @@ function Page() {
 					)}
 
 				<ButtonNav
-					link1="/app/"
-					link2="/app/sorteos"
-					link3="/app/premium"
-					icon1={<IoMdArrowRoundBack size={18} className="text-white" />}
-					icon2={<BsCartCheck size={18} className="text-white" />}
-					icon3={<AiOutlineTrophy size={18} className="text-white" />}
-					texto1={"Volver"}
-					texto2={"Sorteos"}
-					texto3={"Premium"}
+					items={[
+						{
+							link: "/app/",
+							icon: <IoMdArrowRoundBack size={18} className="text-white" />,
+							texto: "Volver",
+						},
+						{
+							link: "/app/sorteos",
+							icon: <BsCartCheck size={18} className="text-white" />,
+							texto: "Sorteos",
+						},
+						{
+							link: "/app/premium",
+							icon: <AiOutlineTrophy size={18} className="text-white" />,
+							texto: "Premium",
+						},
+					]}
 				/>
 			</div>
 		</div>

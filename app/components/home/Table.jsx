@@ -20,7 +20,7 @@ function Table() {
 
 	console.log("infoGames", infoGames);
 	console.log("Data", data);
-	//console.log("Empresa", empresa);
+	console.log("Empresa", empresa);
 
 	const showModalMessage = (message) => {
 		setModalMessage(message);
@@ -31,14 +31,10 @@ function Table() {
 		localStorage.setItem("tournamentId", tournamentId);
 	};
 
-	/*const handleTournamentCardClick = (tournamentId) => {
-		setIdTorneo(tournamentId);
-		saveTournamentIdToCache(tournamentId);
-	};*/
-
 	const handleSorteoCardClick = () => {
 		router.push(`/app/sorteos`);
 	};
+
 	const handleCardClick = (id, tipo, nombre) => {
 		if (tipo === "museo") {
 			router.push(`/app/museo/${id}`);
@@ -65,10 +61,11 @@ function Table() {
 	};
 
 	const fixImageUrl = (url) => {
-		if (url && url.startsWith("//")) {
-			return `https:${url}`;
-		}
-		return url;
+		if (!url || typeof url !== "string") return "";
+		if (url.trim() === "https:") return "";
+		if (url.startsWith("//")) return `https:${url}`;
+		if (url.startsWith("http://") || url.startsWith("https://")) return url;
+		return "";
 	};
 
 	const isPremiumContent = (content) =>
@@ -89,7 +86,7 @@ function Table() {
 	};
 
 	return (
-		<div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 p-10 mb-32 pb-[150px]">
+		<div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 p-10 mb-32 pb-[150px] mt-10">
 			{showModal && (
 				<ModalMensaje
 					message={modalMessage}
@@ -114,27 +111,28 @@ function Table() {
 				{infoGames &&
 					Object.values(infoGames)
 						.sort((a, b) => a.orden - b.orden)
-						.map((game) => (
-							<WhileTap key={game.id}>
-								<div className="flex justify-center">
-									<CardHome
-										text={game.titulo}
-										imageCard={
-											game.imagen ||
-											game.imagen_1 ||
-											game.imagen_0 ||
-											game.image
-										}
-										imageClassName={
-											isPremiumContent(game) && !userModoPremium
-												? "blur-sm"
-												: ""
-										}
-										onClick={() => handleCardClickWithModal(game, game.tipo)}
-									/>
-								</div>
-							</WhileTap>
-						))}
+						.map((game, index) => {
+							const rawImage =
+								game.imagen || game.imagen_0 || game.imagen_1 || game.image;
+							const imageSrc = fixImageUrl(rawImage);
+
+							return (
+								<WhileTap key={game.id}>
+									<div className="flex justify-center">
+										<CardHome
+											text={game.titulo}
+											imageCard={imageSrc || undefined}
+											imageClassName={
+												isPremiumContent(game) && !userModoPremium
+													? "blur-sm"
+													: ""
+											}
+											onClick={() => handleCardClickWithModal(game, game.tipo)}
+										/>
+									</div>
+								</WhileTap>
+							);
+						})}
 
 				{/*infoTruco &&
 					Object.values(infoTruco)

@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import logo from "../../../public/assets/navBar/nav_logo.png";
 import logoCoin from "../../../public/assets/icons/coin.png";
 import { CgMenuRound } from "react-icons/cg";
 import { useDataFrontContext } from "../../context/FrontProvider";
@@ -28,6 +27,7 @@ const NavBar = () => {
 							width={200}
 							height={153}
 							alt="logo"
+							style={{ width: "200px", height: "auto" }}
 						/>
 					</Link>
 				</li>

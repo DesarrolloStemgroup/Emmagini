@@ -54,7 +54,7 @@ const ModalAyuda = ({
 							src={image}
 							className="w-full h-full object-cover rounded-lg"
 							alt="imagen ayuda del juego"
-							objectFit="cover"
+							style={{ objectFit: "cover" }}
 							width={176}
 							height={239}
 						/>

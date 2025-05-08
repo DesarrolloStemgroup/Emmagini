@@ -284,15 +284,20 @@ function Page({ params: { idProducto } }: ComponentProps) {
 				/>
 			)}
 			<ButtonNav
-				link1="/app/productos"
-				link2="/app/subastas"
-				link3="/app/premium"
-				icon1={<IoMdArrowRoundBack size={18} className="text-white" />}
-				icon2={<BsGift size={18} className="text-white" />}
-				icon3={<AiOutlineTrophy size={18} className="text-white" />}
-				texto1={"Volver"}
-				texto2={"Subastas"}
-				texto3={"Premium"}
+				items={[
+					{
+						icon: <IoMdArrowRoundBack size={18} className="text-white" />,
+						texto: "Volver",
+					},
+					{
+						icon: <BsGift size={18} className="text-white" />,
+						texto: "Subastas",
+					},
+					{
+						icon: <AiOutlineTrophy size={18} className="text-white" />,
+						texto: "Premium",
+					},
+				]}
 			/>
 		</>
 	);

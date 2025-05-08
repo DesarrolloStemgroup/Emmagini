@@ -10,7 +10,7 @@ import ButtonNav from "@/app/components/home/ButtonNav";
 import RoundButton from "@/app/components/buttons/RoundButton";
 import Modal from "@/app/components/extras/Modal";
 import { BsGift } from "react-icons/bs";
-import { BsCartCheck } from "react-icons/bs";
+import { HiShoppingBag } from "react-icons/hi";
 import { AiOutlineTrophy } from "react-icons/ai";
 import "@/app/components/styles/loader.css";
 import { useQuery, useMutation, useQueryClient } from "react-query";
@@ -337,15 +337,23 @@ export default function Page({ params: { idTrivia } }: ComponentProps) {
 				/>
 			</div>
 			<ButtonNav
-				link1="/app/subastas"
-				link2="/app/productos"
-				link3="/app/subastas"
-				icon1={<BsGift size={18} className="text-white" />}
-				icon2={<BsCartCheck size={18} className="text-white" />}
-				icon3={<AiOutlineTrophy size={18} className="text-white" />}
-				texto1={"Subastas"}
-				texto2={"Productos"}
-				texto3={"Premium"}
+				items={[
+					{
+						link: "/app/subastas",
+						icon: <BsGift size={22} className="text-white" />,
+						texto: "Subastas",
+					},
+					{
+						link: "/app/productos",
+						icon: <HiShoppingBag size={22} className="text-white" />,
+						texto: "Tienda online",
+					},
+					{
+						link: "/app/premium",
+						icon: <AiOutlineTrophy size={22} className="text-white" />,
+						texto: "Premium",
+					},
+				]}
 			/>
 		</div>
 	);

@@ -24,7 +24,7 @@ function CardHome({
 				<Image
 					src={imageCard}
 					alt="Card"
-					layout="fill"
+					fill
 					style={{ objectFit: "cover" }}
 					className={"w-full h-full".concat(" ", imageClassName || "")}
 					sizes="80"

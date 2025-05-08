@@ -11,8 +11,8 @@ function Cardtruco({ text, text2, imageCard, href, onClick }) {
 				<Image
 					src={imageCard}
 					alt="Card"
-					layout="fill"
-					objectFit="cover"
+					fill
+					style={{ objectFit: "cover" }}
 					className="w-full h-full"
 				/>
 			</div>

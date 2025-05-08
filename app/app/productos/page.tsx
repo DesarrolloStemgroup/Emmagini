@@ -6,9 +6,9 @@ import { useDataContext } from "@/app/context/GameDataProvider";
 import { useAuthContext } from "@/app/context/AuthProvider";
 import CardGames from "@/app/components/cards/CardGames";
 import ButtonNav from "@/app/components/home/ButtonNav";
-import { IoMdArrowRoundBack } from "react-icons/io";
 import { AiOutlineTrophy } from "react-icons/ai";
 import { BsGift, BsCoin, BsCashCoin } from "react-icons/bs";
+import { HiShoppingBag } from "react-icons/hi";
 
 function Page() {
 	const { textos, empresa } = useDataContext();
@@ -246,15 +246,23 @@ function Page() {
 					</div>
 				)}
 			<ButtonNav
-				link1="/app/productos"
-				link2="/app/subastas"
-				link3="/app/premium"
-				icon1={<IoMdArrowRoundBack size={18} className="text-white" />}
-				icon2={<BsGift size={18} className="text-white" />}
-				icon3={<AiOutlineTrophy size={18} className="text-white" />}
-				texto1={"Volver"}
-				texto2={"Subastas"}
-				texto3={"Premium"}
+				items={[
+					{
+						link: "/app/subastas",
+						icon: <BsGift size={22} className="text-white" />,
+						texto: "Subastas",
+					},
+					{
+						link: "/app/productos",
+						icon: <HiShoppingBag size={22} className="text-white" />,
+						texto: "Tienda online",
+					},
+					{
+						link: "/app/premium",
+						icon: <AiOutlineTrophy size={22} className="text-white" />,
+						texto: "Premium",
+					},
+				]}
 			/>
 		</div>
 	);

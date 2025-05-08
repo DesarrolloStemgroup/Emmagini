@@ -228,7 +228,7 @@ export default function Page({
 																		src={fixImageUrl(url)}
 																		alt={`product image ${imgIndex}`}
 																		className="w-full h-full object-cover"
-																		layout="fill"
+																		fill
 																	/>
 																</div>
 															))}
@@ -238,7 +238,7 @@ export default function Page({
 															src={fixImageUrl(imageUrls[0])}
 															alt={`product image 0`}
 															className="w-full h-full object-cover"
-															layout="fill"
+															fill
 														/>
 													)}
 												</div>
@@ -300,15 +300,23 @@ export default function Page({
 				</div>
 			</div>
 			<ButtonNav
-				link1="/app/subastas"
-				link2="/app/productos"
-				link3="/app/subastas"
-				icon1={<BsGift size={18} className="text-white" />}
-				icon2={<BsCartCheck size={18} className="text-white" />}
-				icon3={<AiOutlineTrophy size={18} className="text-white" />}
-				texto1={"Subastas"}
-				texto2={"Productos"}
-				texto3={"Premium"}
+				items={[
+					{
+						link: "/app/subastas",
+						icon: <BsGift size={22} className="text-white" />,
+						texto: "Subastas",
+					},
+					{
+						link: "/app/productos",
+						icon: <BsCartCheck size={22} className="text-white" />,
+						texto: "Productos",
+					},
+					{
+						link: "/app/premium",
+						icon: <AiOutlineTrophy size={22} className="text-white" />,
+						texto: "Premium",
+					},
+				]}
 			/>
 		</>
 	);

@@ -109,8 +109,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 						className="object-center w-full h-full"
 						src={themeResponse?.fondo_login}
 						alt="Homepage background"
-						layout="fill"
-						objectFit="cover"
+						fill
+						style={{ objectFit: "cover" }}
 						objectPosition="center"
 					/>
 				</div>
