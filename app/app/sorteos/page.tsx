@@ -9,7 +9,7 @@ import { useAuthContext } from "@/app/context/AuthProvider";
 import CardGames from "@/app/components/cards/CardGames";
 import ButtonNav from "@/app/components/home/ButtonNav";
 import { IoMdArrowRoundBack } from "react-icons/io";
-import { BsCartCheck } from "react-icons/bs";
+import { HiShoppingBag } from "react-icons/hi";
 import { AiOutlineTrophy } from "react-icons/ai";
 import "@/app/components/styles/loader.css";
 
@@ -179,15 +179,23 @@ function Page() {
 					)}
 
 				<ButtonNav
-					link1="/app/"
-					link2="/app/productos"
-					link3="/app/premium"
-					icon1={<IoMdArrowRoundBack size={18} className="text-white" />}
-					icon2={<BsCartCheck size={18} className="text-white" />}
-					icon3={<AiOutlineTrophy size={18} className="text-white" />}
-					texto1={"Volver"}
-					texto2={"Productos"}
-					texto3={"Premium"}
+					items={[
+						{
+							link: "/app/",
+							icon: <IoMdArrowRoundBack size={22} className="text-white" />,
+							texto: "Volver",
+						},
+						{
+							link: "/app/productos",
+							icon: <HiShoppingBag size={22} className="text-white" />,
+							texto: "Tienda online",
+						},
+						{
+							link: "/app/premium",
+							icon: <AiOutlineTrophy size={22} className="text-white" />,
+							texto: "Premium",
+						},
+					]}
 				/>
 			</div>
 		</div>

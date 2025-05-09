@@ -6,12 +6,10 @@ import { useRouter } from "next/navigation";
 import { useDataContext } from "@/app/context/GameDataProvider";
 import { useAuthContext } from "@/app/context/AuthProvider";
 import PrizesCard from "@/app/components/cards/PrizesCard";
-import tester from "@/public/assets/cards/imageCard.png";
-import CardGames from "@/app/components/cards/CardGames";
 import ButtonNav from "@/app/components/home/ButtonNav";
 import { IoMdArrowRoundBack } from "react-icons/io";
-import { BsCartCheck } from "react-icons/bs";
 import { AiOutlineTrophy } from "react-icons/ai";
+import { HiShoppingBag } from "react-icons/hi";
 import "@/app/components/styles/loader.css";
 
 // TODO: AGREGAR TEXTOS
@@ -169,15 +167,23 @@ function Page({ params: { idSorteo } }: ComponentProps) {
 				</div>
 			</div>
 			<ButtonNav
-				link1="/app/sorteos"
-				link2="/app/productos"
-				link3="/app/premium"
-				icon1={<IoMdArrowRoundBack size={18} className="text-white" />}
-				icon2={<BsCartCheck size={18} className="text-white" />}
-				icon3={<AiOutlineTrophy size={18} className="text-white" />}
-				texto1={"Volver"}
-				texto2={"Productos"}
-				texto3={"Premium"}
+				items={[
+					{
+						link: "/app/sorteos",
+						icon: <IoMdArrowRoundBack size={22} className="text-white" />,
+						texto: "Volver",
+					},
+					{
+						link: "/app/productos",
+						icon: <HiShoppingBag size={22} className="text-white" />,
+						texto: "Tienda online",
+					},
+					{
+						link: "/app/premium",
+						icon: <AiOutlineTrophy size={22} className="text-white" />,
+						texto: "Premium",
+					},
+				]}
 			/>
 		</div>
 	);
